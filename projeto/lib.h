@@ -4,5 +4,5 @@
 
 #ifndef PROJETO_LIB_H
 #define PROJETO_LIB_H
-
+void imprimeMenu();
 #endif //PROJETO_LIB_H
