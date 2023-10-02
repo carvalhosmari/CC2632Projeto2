@@ -18,15 +18,17 @@ int main() {
             cod = cadastraCliente(&lista);
 
             if (cod != 0) {
-                printf("Erro ao cadastrar cliente! Tente novamente em instantes..");
+                printf("Erro ao cadastrar cliente! Tente novamente em instantes..\n");
             }
 
             system("pause");
         } else if(input == 2) {
             //deleta
         } else if(input == 3) {
-            for (int i = 0; i < lista.qtd; i++) {
-                printf("%s\n%s\n%d\n%lf\n%s\n", lista.carteira[i].nome, lista.carteira[i].cpf, lista.carteira[i].tipo, lista.carteira[i].saldo, lista.carteira[i].senha);
+            cod = listaClientes(&lista);
+
+            if (cod != 0) {
+                printf("Nao foi possivel exibir a lista de clientes! Tente novamente em instantes..\n");
             }
             system("pause");
         } else if(input == 4) {
