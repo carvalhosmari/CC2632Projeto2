@@ -1,9 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "lib.h"
 
 int main() {
 
-    int  input;
+    int  input, cod;
+    ListaClientes lista;
+    lista.qtd = 0;
 
     do {
         imprimeMenu();
@@ -12,11 +15,20 @@ int main() {
 
         if (input == 0);
         else if (input == 1) {
-            //cadastrar novo cliente
+            cod = cadastraCliente(&lista);
+
+            if (cod != 0) {
+                printf("Erro ao cadastrar cliente! Tente novamente em instantes..");
+            }
+
+            system("pause");
         } else if(input == 2) {
-            //apagar cliente
+            //deleta
         } else if(input == 3) {
-            //listar clientes
+            for (int i = 0; i < lista.qtd; i++) {
+                printf("%s\n%s\n%d\n%lf\n%s\n", lista.carteira[i].nome, lista.carteira[i].cpf, lista.carteira[i].tipo, lista.carteira[i].saldo, lista.carteira[i].senha);
+            }
+            system("pause");
         } else if(input == 4) {
             //debito
         } else if(input == 5) {
