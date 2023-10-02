@@ -36,4 +36,5 @@ typedef struct {
 } ListaClientes;
 void imprimeMenu();
 int cadastraCliente(ListaClientes *lt);
+int listaClientes(ListaClientes *lt);
 #endif //PROJETO_LIB_H

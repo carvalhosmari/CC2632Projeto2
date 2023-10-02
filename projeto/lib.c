@@ -37,3 +37,12 @@ int cadastraCliente(ListaClientes *lt) {
 
     return 0;
 }
+
+int listaClientes(ListaClientes *lt) {
+    for (int i = 0; i < lt->qtd; i++) {
+        printf("Cliente [%d]: \n", (i + 1));
+        printf("\tNome: %s\n\tCPF: %s\n\tTipo de conta: %d\n\tSaldo: R$ %.2lf\n", lt->carteira[i].nome, lt->carteira[i].cpf, lt->carteira[i].tipo, lt->carteira[i].saldo);
+    }
+
+    return 0;
+}
