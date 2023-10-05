@@ -69,7 +69,17 @@ int main() {
         } else if(input == 4) {
             //debito
         } else if(input == 5) {
-            //deposito
+            cod = depositaValor(&lista);
+
+            if (cod == -1) {
+                printf("CPF invalido!\n\n");
+            } else if (cod == 0) {
+                printf("Valor depositado com sucesso!\n\n");
+                salvaListaClientes(&lista, "arquivo");
+            }
+
+            system("pause");
+
         } else if(input == 6) {
             //extrato
         } else if(input == 7) {

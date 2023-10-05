@@ -104,3 +104,37 @@ int carregaListaClientes(ListaClientes *lc, char *arquivo) {
 
     return 0;
 }
+
+int depositaValor(ListaClientes *lc) {
+    int cpfDestino, indiceCliente;
+    double valorDeposito;
+
+    printf("Digite o CPF da conta de destino: ");
+    scanf("%d", &cpfDestino);
+
+    indiceCliente = retornaIndiceCliente(lc, cpfDestino);
+
+    if (indiceCliente == -1) {
+        return -1;
+    } else if (indiceCliente >= 0) {
+        printf("Digite o valor a ser depositado: ");
+        scanf("%lf", &valorDeposito);
+
+        lc->carteira[indiceCliente].saldo += valorDeposito;
+    }
+
+    return  0;
+}
+
+int retornaIndiceCliente(ListaClientes *lc, int cpf) {
+    int indiceCliente = -1;
+
+    for (int i = 0; i < lc->qtd; i++) {
+        if (cpf == lc->carteira[i].cpf) {
+            indiceCliente = i;
+            break;
+        }
+    }
+
+    return indiceCliente;
+}
