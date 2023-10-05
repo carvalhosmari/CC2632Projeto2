@@ -52,15 +52,13 @@ int listaClientes(ListaClientes *lc) {
     return 0;
 }
 
-int deletaCliente(ListaClientes *lc, int cpf) {
-    int indiceCliente = -1;
+int deletaCliente(ListaClientes *lc) {
+    int indiceCliente, cpf;
 
-    for (int i = 0; i < lc->qtd; i++) {
-        if (cpf == lc->carteira[i].cpf) {
-            indiceCliente = i;
-            break;
-        }
-    }
+    printf("Digite o CPF do cliente que sera excluido: ");
+    scanf("%d", &cpf);
+
+    indiceCliente = retornaIndiceCliente(lc, cpf);
 
     for (int i = 0; i < lc->qtd; i++) {
         if (indiceCliente != -1 && indiceCliente <= i) {

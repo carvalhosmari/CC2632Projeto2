@@ -37,11 +37,7 @@ int main() {
             system("pause");
 
         } else if(input == 2) {
-            printf("digite o cpf do cliente que voce gostaria de deletar:");
-
-            scanf("%d", &input);
-
-            cod = deletaCliente(&lista, input);
+            cod = deletaCliente(&lista);
 
             if (cod == 1) {
                 printf("Cliente nao encontrado!\n\n");

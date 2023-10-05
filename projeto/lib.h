@@ -37,7 +37,7 @@ typedef struct {
 void imprimeMenu();
 int cadastraCliente(ListaClientes *lc);
 int listaClientes(ListaClientes *lc);
-int deletaCliente(ListaClientes *lc, int cpf);
+int deletaCliente(ListaClientes *lc);
 int salvaListaClientes(ListaClientes *lc, char *arquivo);
 int carregaListaClientes(ListaClientes *lc, char *arquivo);
 int depositaValor(ListaClientes *lc);
