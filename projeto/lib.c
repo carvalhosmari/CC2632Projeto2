@@ -21,8 +21,9 @@ int cadastraCliente(ListaClientes *lt) {
     printf("Digite o nome do cliente: ");
     scanf("%[^\n]", cl->nome);
 
+    fgetc(stdin);
     printf("Digite o cpf (somente numeros): ");
-    scanf("%s", cl->cpf);
+    scanf("%d", &cl->cpf);
 
     printf("Digite o tipo da conta: \n\t1 - Comum\n\t2 - Plus\n");
     scanf("%d", &cl->tipo);
@@ -41,8 +42,33 @@ int cadastraCliente(ListaClientes *lt) {
 int listaClientes(ListaClientes *lt) {
     for (int i = 0; i < lt->qtd; i++) {
         printf("Cliente [%d]: \n", (i + 1));
-        printf("\tNome: %s\n\tCPF: %s\n\tTipo de conta: %d\n\tSaldo: R$ %.2lf\n", lt->carteira[i].nome, lt->carteira[i].cpf, lt->carteira[i].tipo, lt->carteira[i].saldo);
+        printf("\tNome: %s\n\tCPF: %d\n\tTipo de conta: %d\n\tSaldo: R$ %.2lf\n", lt->carteira[i].nome, lt->carteira[i].cpf, lt->carteira[i].tipo, lt->carteira[i].saldo);
     }
+
+    return 0;
+}
+
+int deletaCliente(ListaClientes *lt, int cpf) {
+    int indiceCliente = -1;
+
+    for (int i = 0; i < lt->qtd; i++) {
+        if (cpf == lt->carteira[i].cpf) {
+            indiceCliente = i;
+            break;
+        }
+    }
+
+    for (int i = 0; i < lt->qtd; i++) {
+        if (indiceCliente != -1 && indiceCliente <= i) {
+            lt->carteira[i] = lt->carteira[(i + 1)];
+        }
+    }
+
+    if (indiceCliente == -1) {
+        return 1;
+    }
+
+    lt->qtd--;
 
     return 0;
 }
