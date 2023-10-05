@@ -35,7 +35,9 @@ typedef struct {
     int qtd;
 } ListaClientes;
 void imprimeMenu();
-int cadastraCliente(ListaClientes *lt);
-int listaClientes(ListaClientes *lt);
-int deletaCliente(ListaClientes *lt, int cpf);
+int cadastraCliente(ListaClientes *lc);
+int listaClientes(ListaClientes *lc);
+int deletaCliente(ListaClientes *lc, int cpf);
+int salvaListaClientes(ListaClientes *lc, char *arquivo);
+int carregaListaClientes(ListaClientes *lc, char *arquivo);
 #endif //PROJETO_LIB_H

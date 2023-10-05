@@ -6,7 +6,12 @@ int main() {
 
     int  input, cod;
     ListaClientes lista;
-    lista.qtd = 0;
+
+    cod = carregaListaClientes(&lista, "arquivo");
+
+    if (cod != 0) {
+        lista.qtd = 0;
+    }
 
     do {
         imprimeMenu();
@@ -18,9 +23,15 @@ int main() {
             cod = cadastraCliente(&lista);
 
             if (cod != 0) {
-                printf("Erro ao cadastrar cliente! Tente novamente em instantes..\n");
+                printf("Erro ao cadastrar cliente! Tente novamente em instantes..\n\n");
             } else {
-                printf("Cliente cadastrado com sucesso!");
+                cod = salvaListaClientes(&lista, "arquivo");
+
+                if (cod == 0) {
+                    printf("Cliente cadastrado com sucesso!\n\n");
+                } else {
+                    printf("Erro na abertura do arquivo de destino.\n\n");
+                }
             }
 
             system("pause");
@@ -33,11 +44,12 @@ int main() {
             cod = deletaCliente(&lista, input);
 
             if (cod == 1) {
-                printf("Cliente nao encontrado!\n");
+                printf("Cliente nao encontrado!\n\n");
             } else if (cod != 0) {
-                printf("Nao foi possivel deletar o cliente! Tente novamente em instantes..\n");
+                printf("Nao foi possivel deletar o cliente! Tente novamente em instantes..\n\n");
             } else {
-                printf("Cliente deletado com sucesso!\n");
+                printf("Cliente deletado com sucesso!\n\n");
+                salvaListaClientes(&lista, "arquivo");
             }
 
             system("pause");
@@ -45,9 +57,13 @@ int main() {
         } else if(input == 3) {
             cod = listaClientes(&lista);
 
-            if (cod != 0) {
-                printf("Nao foi possivel exibir a lista de clientes! Tente novamente em instantes..\n");
+            if (cod == 0) {
+            } else if (cod == 1) {
+                printf("Lista de clientes vazia.\n\n");
+            } else {
+                printf("Nao foi possivel exibir a lista de clientes! Tente novamente em instantes..\n\n");
             }
+
             system("pause");
 
         } else if(input == 4) {

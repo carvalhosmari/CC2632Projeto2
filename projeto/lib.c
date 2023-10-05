@@ -14,8 +14,8 @@ void imprimeMenu() {
     printf("digite sua opcao: ");
 }
 
-int cadastraCliente(ListaClientes *lt) {
-    Cliente *cl = &lt->carteira[lt->qtd];
+int cadastraCliente(ListaClientes *lc) {
+    Cliente *cl = &lc->carteira[lc->qtd];
 
     fgetc(stdin);
     printf("Digite o nome do cliente: ");
@@ -34,33 +34,37 @@ int cadastraCliente(ListaClientes *lt) {
     printf("Digite uma senha de ate 15 caracteres: ");
     scanf("%s", cl->senha);
 
-    lt->qtd++;
+    lc->qtd++;
 
     return 0;
 }
 
-int listaClientes(ListaClientes *lt) {
-    for (int i = 0; i < lt->qtd; i++) {
+int listaClientes(ListaClientes *lc) {
+    if (lc->qtd == 0) {
+        return 1;
+    }
+
+    for (int i = 0; i < lc->qtd; i++) {
         printf("Cliente [%d]: \n", (i + 1));
-        printf("\tNome: %s\n\tCPF: %d\n\tTipo de conta: %d\n\tSaldo: R$ %.2lf\n", lt->carteira[i].nome, lt->carteira[i].cpf, lt->carteira[i].tipo, lt->carteira[i].saldo);
+        printf("\tNome: %s\n\tCPF: %d\n\tTipo de conta: %d\n\tSaldo: R$ %.2lf\n", lc->carteira[i].nome, lc->carteira[i].cpf, lc->carteira[i].tipo, lc->carteira[i].saldo);
     }
 
     return 0;
 }
 
-int deletaCliente(ListaClientes *lt, int cpf) {
+int deletaCliente(ListaClientes *lc, int cpf) {
     int indiceCliente = -1;
 
-    for (int i = 0; i < lt->qtd; i++) {
-        if (cpf == lt->carteira[i].cpf) {
+    for (int i = 0; i < lc->qtd; i++) {
+        if (cpf == lc->carteira[i].cpf) {
             indiceCliente = i;
             break;
         }
     }
 
-    for (int i = 0; i < lt->qtd; i++) {
+    for (int i = 0; i < lc->qtd; i++) {
         if (indiceCliente != -1 && indiceCliente <= i) {
-            lt->carteira[i] = lt->carteira[(i + 1)];
+            lc->carteira[i] = lc->carteira[(i + 1)];
         }
     }
 
@@ -68,7 +72,35 @@ int deletaCliente(ListaClientes *lt, int cpf) {
         return 1;
     }
 
-    lt->qtd--;
+    lc->qtd--;
+
+    return 0;
+}
+
+int salvaListaClientes(ListaClientes *lc, char *arquivo) {
+    FILE *f = fopen(arquivo, "wb");
+
+    if (f == NULL) {
+        return 1;
+    }
+
+    fwrite(lc, sizeof(ListaClientes), 1, f);
+
+    fclose(f);
+
+    return 0;
+}
+
+int carregaListaClientes(ListaClientes *lc, char *arquivo) {
+    FILE  *f = fopen(arquivo, "rb");
+
+    if (f == NULL) {
+        return 1;
+    }
+
+    fread(lc, sizeof(ListaClientes), 1, f);
+
+    fclose(f);
 
     return 0;
 }
