@@ -19,11 +19,29 @@ int main() {
 
             if (cod != 0) {
                 printf("Erro ao cadastrar cliente! Tente novamente em instantes..\n");
+            } else {
+                printf("Cliente cadastrado com sucesso!");
             }
 
             system("pause");
+
         } else if(input == 2) {
-            //deleta
+            printf("digite o cpf do cliente que voce gostaria de deletar:");
+
+            scanf("%d", &input);
+
+            cod = deletaCliente(&lista, input);
+
+            if (cod == 1) {
+                printf("Cliente nao encontrado!\n");
+            } else if (cod != 0) {
+                printf("Nao foi possivel deletar o cliente! Tente novamente em instantes..\n");
+            } else {
+                printf("Cliente deletado com sucesso!\n");
+            }
+
+            system("pause");
+
         } else if(input == 3) {
             cod = listaClientes(&lista);
 
@@ -31,6 +49,7 @@ int main() {
                 printf("Nao foi possivel exibir a lista de clientes! Tente novamente em instantes..\n");
             }
             system("pause");
+
         } else if(input == 4) {
             //debito
         } else if(input == 5) {
