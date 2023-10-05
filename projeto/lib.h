@@ -24,7 +24,7 @@ typedef struct {
 } Transacoes;
 typedef struct {
     char nome[150];
-    char cpf[11];
+    int cpf;
     TipoConta tipo;
     double saldo;
     char senha[15];
@@ -37,4 +37,5 @@ typedef struct {
 void imprimeMenu();
 int cadastraCliente(ListaClientes *lt);
 int listaClientes(ListaClientes *lt);
+int deletaCliente(ListaClientes *lt, int cpf);
 #endif //PROJETO_LIB_H
