@@ -40,4 +40,6 @@ int listaClientes(ListaClientes *lc);
 int deletaCliente(ListaClientes *lc, int cpf);
 int salvaListaClientes(ListaClientes *lc, char *arquivo);
 int carregaListaClientes(ListaClientes *lc, char *arquivo);
+int depositaValor(ListaClientes *lc);
+int retornaIndiceCliente(ListaClientes *lc, int cpf);
 #endif //PROJETO_LIB_H
