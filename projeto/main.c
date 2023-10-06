@@ -63,7 +63,19 @@ int main() {
             system("pause");
 
         } else if(input == 4) {
-            //debito
+            cod = debitaValor(&lista);
+
+            if (cod == -1) {
+                printf("CPF invalido!\n\n");
+            } else if (cod == 0) {
+                printf("Valor debitado com sucesso!\n\n");
+                salvaListaClientes(&lista, "arquivo");
+            } else if (cod == -2) {
+                printf("Senha incorreta!\n\n");
+            }
+
+            system("pause");
+
         } else if(input == 5) {
             cod = depositaValor(&lista);
 
