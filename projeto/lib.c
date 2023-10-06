@@ -31,8 +31,8 @@ int cadastraCliente(ListaClientes *lc) {
     printf("Digite o saldo inicial da conta: ");
     scanf("%lf", &cl->saldo);
 
-    printf("Digite uma senha de ate 15 caracteres: ");
-    scanf("%s", cl->senha);
+    printf("Digite uma senha de 4 digitos: ");
+    scanf("%d", &cl->senha);
 
     lc->qtd++;
 
@@ -135,4 +135,37 @@ int retornaIndiceCliente(ListaClientes *lc, int cpf) {
     }
 
     return indiceCliente;
+}
+
+int debitaValor(ListaClientes *lc) {
+    int indiceCliente, cpf;
+    int senha;
+    double valor;
+
+    printf("CPF do cliente: ");
+    scanf("%d", &cpf);
+
+    indiceCliente = retornaIndiceCliente(lc, cpf);
+
+    if (indiceCliente == -1) {
+        return -1;
+    } else {
+        printf("Senha: ");
+        scanf("%d", &senha);
+
+        if (senha != lc->carteira[indiceCliente].senha) {
+            return -2;
+        } else {
+            printf("Valor a ser debitado: ");
+            scanf("%lf", &valor);
+
+            if (lc->carteira[indiceCliente].tipo == 1) {
+                lc->carteira[indiceCliente].saldo -= (valor * 1.05);
+            } else if (lc->carteira[indiceCliente].tipo == 2) {
+                lc->carteira[indiceCliente].saldo -= (valor * 1.03);
+            }
+        }
+    }
+
+    return 0;
 }
