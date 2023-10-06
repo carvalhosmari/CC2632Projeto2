@@ -27,7 +27,7 @@ typedef struct {
     int cpf;
     TipoConta tipo;
     double saldo;
-    char senha[15];
+    int senha;
     Transacoes extrato;
 } Cliente;
 typedef struct {
@@ -42,4 +42,5 @@ int salvaListaClientes(ListaClientes *lc, char *arquivo);
 int carregaListaClientes(ListaClientes *lc, char *arquivo);
 int depositaValor(ListaClientes *lc);
 int retornaIndiceCliente(ListaClientes *lc, int cpf);
+int debitaValor(ListaClientes *lc);
 #endif //PROJETO_LIB_H
