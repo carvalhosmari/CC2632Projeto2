@@ -43,4 +43,5 @@ int carregaListaClientes(ListaClientes *lc, char *arquivo);
 int depositaValor(ListaClientes *lc);
 int retornaIndiceCliente(ListaClientes *lc, int cpf);
 int debitaValor(ListaClientes *lc);
+int transfereValor(ListaClientes *lc);
 #endif //PROJETO_LIB_H
