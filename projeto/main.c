@@ -91,7 +91,19 @@ int main() {
         } else if(input == 6) {
             //extrato
         } else if(input == 7) {
-            //transf
+            cod = transfereValor(&lista);
+
+            if (cod == -1) {
+                printf("CPF invalido!\n\n");
+            } else if (cod == 0) {
+                printf("Valor transferido com sucesso!\n\n");
+                salvaListaClientes(&lista, "arquivo");
+            } else if (cod == -2) {
+                printf("Senha incorreta!\n\n");
+            }
+
+            system("pause");
+
         } else {
             printf("Opcao invalida!\n\n");
         }

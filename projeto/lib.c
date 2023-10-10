@@ -169,3 +169,41 @@ int debitaValor(ListaClientes *lc) {
 
     return 0;
 }
+
+int transfereValor(ListaClientes *lc) {
+    int indiceCliente1, indiceCliente2, cpf1, cpf2;
+    int senha;
+    double valor;
+
+    printf("CPF do titular da conta de origem: ");
+    scanf("%d", &cpf1);
+
+    indiceCliente1 = retornaIndiceCliente(lc, cpf1);
+
+    if (indiceCliente1 == -1) {
+        return -1;
+    } else {
+        printf("Senha: ");
+        scanf("%d", &senha);
+
+        if (senha != lc->carteira[indiceCliente1].senha) {
+            return -2;
+        } else {
+            printf("CPF do titular da conta de destino: ");
+            scanf("%d", &cpf2);
+
+            indiceCliente2 = retornaIndiceCliente(lc, cpf2);
+
+            if (indiceCliente2 == -1) {
+                return -1;
+            } else {
+                printf("Valor a ser transferido: ");
+                scanf("%lf", &valor);
+
+                lc->carteira[indiceCliente1].saldo -= valor;
+                lc->carteira[indiceCliente2].saldo += valor;
+            }
+        }
+    }
+    return 0;
+}
