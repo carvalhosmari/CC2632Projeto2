@@ -44,4 +44,5 @@ int retornaIndiceCliente(ListaClientes *lc, int cpf);
 int debitaValor(ListaClientes *lc);
 int transfereValor(ListaClientes *lc);
 int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor);
+int listaTransacoes(ListaClientes *lc);
 #endif //PROJETO_LIB_H

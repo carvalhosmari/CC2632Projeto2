@@ -141,8 +141,7 @@ int retornaIndiceCliente(ListaClientes *lc, int cpf) {
 }
 
 int debitaValor(ListaClientes *lc) {
-    int indiceCliente, cpf;
-    int senha;
+    int indiceCliente, cpf, senha;
     double valor;
 
     printf("CPF do cliente: ");
@@ -226,5 +225,42 @@ int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor) {
     tr->qtd++;
 
     return 0;
+}
+
+int listaTransacoes(ListaClientes *lc) {
+    int cpf, senha, indiceCliente;
+
+    printf("CPF do cliente: ");
+    scanf("%d", &cpf);
+
+    indiceCliente = retornaIndiceCliente(lc, cpf);
+
+    Transacoes *tr = &lc->carteira[indiceCliente].extrato;
+
+    if (indiceCliente == -1) {
+        return -1;
+    } else {
+        printf("Senha: ");
+        scanf("%d", &senha);
+
+        if (senha != lc->carteira[indiceCliente].senha) {
+            return -2;
+        } else {
+            for (int i = 0; i < tr->qtd; i++) {
+                char *tipo;
+
+                if (tr->lista[i].tipo == 1) {
+                    tipo = "debito";
+                } else if (tr->lista[i].tipo == 2) {
+                    tipo = "deposito";
+                } else {
+                    tipo = "transferencia entre contas";
+                }
+                printf("----------------------------------\n");
+                printf("tipo: %s\nvalor: R$%.2lf\n", tipo, tr->lista[i].valor);
+            }
+            return 0;
+        }
+    }
 }
 
