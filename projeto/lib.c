@@ -16,6 +16,7 @@ void imprimeMenu() {
 
 int cadastraCliente(ListaClientes *lc) {
     Cliente *cl = &lc->carteira[lc->qtd];
+    Transacoes *tr = &cl->extrato;
 
     fgetc(stdin);
     printf("Digite o nome do cliente: ");
@@ -34,6 +35,7 @@ int cadastraCliente(ListaClientes *lc) {
     printf("Digite uma senha de 4 digitos: ");
     scanf("%d", &cl->senha);
 
+    tr->qtd = 0;
     lc->qtd++;
 
     return 0;
@@ -119,6 +121,7 @@ int depositaValor(ListaClientes *lc) {
         scanf("%lf", &valorDeposito);
 
         lc->carteira[indiceCliente].saldo += valorDeposito;
+        registraTransacao(&lc->carteira[indiceCliente], 2, valorDeposito);
     }
 
     return  0;
@@ -161,8 +164,10 @@ int debitaValor(ListaClientes *lc) {
 
             if (lc->carteira[indiceCliente].tipo == 1) {
                 lc->carteira[indiceCliente].saldo -= (valor * 1.05);
+                registraTransacao(&lc->carteira[indiceCliente], 1, (valor * 1.05));
             } else if (lc->carteira[indiceCliente].tipo == 2) {
                 lc->carteira[indiceCliente].saldo -= (valor * 1.03);
+                registraTransacao(&lc->carteira[indiceCliente], 1, (valor * 1.03));
             }
         }
     }
@@ -201,9 +206,25 @@ int transfereValor(ListaClientes *lc) {
                 scanf("%lf", &valor);
 
                 lc->carteira[indiceCliente1].saldo -= valor;
+                registraTransacao(&lc->carteira[indiceCliente1], 3, valor);
+
                 lc->carteira[indiceCliente2].saldo += valor;
+                registraTransacao(&lc->carteira[indiceCliente2], 3, valor);
             }
         }
     }
     return 0;
 }
+
+int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor) {
+    Transacoes *tr = &c->extrato;
+    Operacao *op = &tr->lista[tr->qtd];
+
+    op->valor = valor;
+    op->tipo = tipoOperacao;
+
+    tr->qtd++;
+
+    return 0;
+}
+
