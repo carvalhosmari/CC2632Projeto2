@@ -142,7 +142,7 @@ int retornaIndiceCliente(ListaClientes *lc, int cpf) {
 
 int debitaValor(ListaClientes *lc) {
     int indiceCliente, cpf, senha;
-    double valor;
+    double valor, taxa;
 
     printf("CPF do cliente: ");
     scanf("%d", &cpf);
@@ -162,12 +162,13 @@ int debitaValor(ListaClientes *lc) {
             scanf("%lf", &valor);
 
             if (lc->carteira[indiceCliente].tipo == 1) {
-                lc->carteira[indiceCliente].saldo -= (valor * 1.05);
-                registraTransacao(&lc->carteira[indiceCliente], 1, (valor * 1.05));
-            } else if (lc->carteira[indiceCliente].tipo == 2) {
-                lc->carteira[indiceCliente].saldo -= (valor * 1.03);
-                registraTransacao(&lc->carteira[indiceCliente], 1, (valor * 1.03));
+                taxa = 1.05;
+            } else {
+                taxa = 1.03;
             }
+
+            lc->carteira[indiceCliente].saldo -= (valor * taxa);
+            registraTransacao(&lc->carteira[indiceCliente], 1, (valor * -1));
         }
     }
 
@@ -205,7 +206,7 @@ int transfereValor(ListaClientes *lc) {
                 scanf("%lf", &valor);
 
                 lc->carteira[indiceCliente1].saldo -= valor;
-                registraTransacao(&lc->carteira[indiceCliente1], 3, valor);
+                registraTransacao(&lc->carteira[indiceCliente1], 3, (valor * -1));
 
                 lc->carteira[indiceCliente2].saldo += valor;
                 registraTransacao(&lc->carteira[indiceCliente2], 3, valor);
