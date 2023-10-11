@@ -89,7 +89,16 @@ int main() {
             system("pause");
 
         } else if(input == 6) {
-            //extrato
+            cod = listaTransacoes(&lista);
+
+            if (cod == 0) {
+            } else if (cod == -1) {
+                printf("CPF invalido!\n\n");
+            } else if (cod == -2) {
+                printf("Senha incorreta!\n\n");
+            }
+
+            system("pause");
         } else if(input == 7) {
             cod = transfereValor(&lista);
 
