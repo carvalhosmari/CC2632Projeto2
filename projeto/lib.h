@@ -11,7 +11,6 @@ typedef enum {
 typedef enum {
     debito = 1,
     deposito,
-    saque,
     transferencia
 } TipoOperacao;
 typedef struct {
@@ -44,4 +43,5 @@ int depositaValor(ListaClientes *lc);
 int retornaIndiceCliente(ListaClientes *lc, int cpf);
 int debitaValor(ListaClientes *lc);
 int transfereValor(ListaClientes *lc);
+int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor);
 #endif //PROJETO_LIB_H
