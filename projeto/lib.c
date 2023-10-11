@@ -255,10 +255,14 @@ int listaTransacoes(ListaClientes *lc) {
                 } else if (tr->lista[i].tipo == 2) {
                     tipo = "deposito";
                 } else {
-                    tipo = "transferencia entre contas";
+                    if (tr->lista[i].valor < 0) {
+                        tipo = "transferencia enviada";
+                    } else {
+                        tipo = "transferencia recebida";
+                    }
                 }
                 printf("----------------------------------\n");
-                printf("tipo: %s\nvalor: R$%.2lf\n", tipo, tr->lista[i].valor);
+                printf("tipo: %s\nvalor: R$\t%.2lf\n", tipo, tr->lista[i].valor);
             }
             return 0;
         }
