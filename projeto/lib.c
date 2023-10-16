@@ -264,8 +264,23 @@ int listaTransacoes(ListaClientes *lc) {
                 printf("----------------------------------\n");
                 printf("tipo: %s\nvalor: R$\t%.2lf\n", tipo, tr->lista[i].valor);
             }
+            geraExtrato(&lc->carteira[indiceCliente]);
             return 0;
         }
     }
+}
+
+int geraExtrato(Cliente *c) {
+    Transacoes *tr = &c->extrato;
+    FILE *f = fopen("extrato.txt", "w");
+
+    for (int i = 0; i < tr->qtd; i++) {
+        fprintf(f, "-------------------------------\n");
+        fprintf(f, "tipo: %d\n", tr->lista[i].tipo);
+        fprintf(f, "valor: R$ %.2lf\n", tr->lista[i].valor);
+    }
+
+    fclose(f);
+    return 0;
 }
 

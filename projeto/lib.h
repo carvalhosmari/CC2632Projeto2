@@ -45,4 +45,5 @@ int debitaValor(ListaClientes *lc);
 int transfereValor(ListaClientes *lc);
 int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor);
 int listaTransacoes(ListaClientes *lc);
+int geraExtrato(Cliente *c);
 #endif //PROJETO_LIB_H
