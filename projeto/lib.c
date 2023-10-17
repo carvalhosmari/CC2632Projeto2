@@ -284,12 +284,37 @@ int geraExtrato(Cliente *c) {
     FILE *f = fopen("extrato.txt", "w");
 
     for (int i = 0; i < tr->qtd; i++) {
+        char *tipo;
+        double tarifa = 0;
+        double valorTransacao = tr->lista[i].valor / (1 + tarifa);
+
+        if (tr->lista[i].tipo == 1) {
+            tipo = "debito";
+
+            if (c->tipo == 1) {
+                tarifa = 0.05;
+            } else if (c->tipo == 2) {
+                tarifa = 0.03;
+            }
+        } else if (tr->lista[i].tipo == 2) {
+            tipo = "deposito";
+        } else {
+            if (tr->lista[i].valor < 0) {
+                tipo = "transferencia enviada";
+            } else {
+                tipo = "transferencia recebida";
+            }
+        }
+
+        fprintf(f, "tipo: %s\n", tipo);
+        fprintf(f, "valor: R$ %.2lf\n", valorTransacao);
+        fprintf(f, "tarifa: %.0lf%%\n", (tarifa * 100));
+        fprintf(f, "total: R$ %.2lf\n", tr->lista[i].valor + (valorTransacao * tarifa));
         fprintf(f, "-------------------------------\n");
-        fprintf(f, "tipo: %d\n", tr->lista[i].tipo);
-        fprintf(f, "valor: R$ %.2lf\n", tr->lista[i].valor);
     }
 
     fclose(f);
+
     return 0;
 }
 
