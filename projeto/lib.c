@@ -249,10 +249,18 @@ int listaTransacoes(ListaClientes *lc) {
         if (senha != lc->carteira[indiceCliente].senha) {
             return -2;
         } else {
+            printf("\nNome: %s\n", lc->carteira[indiceCliente].nome);
+            printf("CPF: %d\n", lc->carteira[indiceCliente].cpf);
+
+            if (lc->carteira[indiceCliente].tipo == 1) {
+                printf("Tipo de conta: comum\n");
+            } else {
+                printf("Tipo de conta: plus\n");
+            }
             for (int i = 0; i < tr->qtd; i++) {
-                char *tipo;
                 double tarifa = 0;
                 double valorTransacao = tr->lista[i].valor / (1 + tarifa);
+                char *tipo;
 
                 if (tr->lista[i].tipo == 1) {
                     tipo = "debito";
@@ -271,10 +279,11 @@ int listaTransacoes(ListaClientes *lc) {
                         tipo = "transferencia recebida";
                     }
                 }
-                printf("--------------------------------------------------\n");
+                printf("--------------------------------------------------------\n");
                 printf("tipo: %s\n", tipo);
-                printf("valor: R$\t%.2lf\ntarifa: %12.0lf%%\ntotal: R$\t%.2lf\n", valorTransacao, (tarifa * 100),  tr->lista[i].valor + (valorTransacao * tarifa));
+                printf("\t R$ %.2lf\t tarifa: %.0lf%%\t saldo: %.2lf\n", valorTransacao, (tarifa * 100), tr->lista[i].saldoAtualizado);
             }
+            printf("\n");
             geraExtrato(&lc->carteira[indiceCliente]);
             return 0;
         }
