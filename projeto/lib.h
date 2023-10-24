@@ -14,8 +14,9 @@ typedef enum {
     transferencia
 } TipoOperacao;
 typedef struct {
-    TipoOperacao tipo;
+    TipoOperacao  tipo;
     double valor;
+    double saldoAtualizado;
 } Operacao;
 typedef struct {
     Operacao lista[100];
@@ -30,7 +31,7 @@ typedef struct {
     Transacoes extrato;
 } Cliente;
 typedef struct {
-    Cliente carteira[1000];
+    Cliente carteira[10];
     int qtd;
 } ListaClientes;
 void imprimeMenu();

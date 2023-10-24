@@ -36,6 +36,7 @@ int cadastraCliente(ListaClientes *lc) {
     scanf("%d", &cl->senha);
 
     tr->qtd = 0;
+    registraTransacao(cl, 2, cl->saldo);
     lc->qtd++;
 
     return 0;
@@ -222,6 +223,7 @@ int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor) {
 
     op->valor = valor;
     op->tipo = tipoOperacao;
+    op->saldoAtualizado = c->saldo;
 
     tr->qtd++;
 
