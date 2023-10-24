@@ -72,6 +72,8 @@ int main() {
                 salvaListaClientes(&lista, "arquivo");
             } else if (cod == -2) {
                 printf("Senha incorreta!\n\n");
+            } else if (cod == -3) {
+                printf("Saldo insuficiente!\n\n");
             }
 
             system("pause");
@@ -109,6 +111,8 @@ int main() {
                 salvaListaClientes(&lista, "arquivo");
             } else if (cod == -2) {
                 printf("Senha incorreta!\n\n");
+            } else if (cod == -3) {
+                printf("Saldo insuficiente!\n\n");
             }
 
             system("pause");
