@@ -143,7 +143,7 @@ int retornaIndiceCliente(ListaClientes *lc, int cpf) {
 
 int debitaValor(ListaClientes *lc) {
     int indiceCliente, cpf, senha;
-    double valor, taxa;
+    double valor, valorFinal;
 
     printf("CPF do cliente: ");
     scanf("%d", &cpf);
@@ -163,12 +163,16 @@ int debitaValor(ListaClientes *lc) {
             scanf("%lf", &valor);
 
             if (lc->carteira[indiceCliente].tipo == 1) {
-                taxa = 1.05;
+                valorFinal = valor * 1.05;
             } else {
-                taxa = 1.03;
+                valorFinal = valor * 1.03;
             }
 
-            lc->carteira[indiceCliente].saldo -= (valor * taxa);
+            if (verificaSaldo(&lc->carteira[indiceCliente], valorFinal) == -3) {
+                return -3;
+            }
+
+            lc->carteira[indiceCliente].saldo -= valorFinal;
             registraTransacao(&lc->carteira[indiceCliente], 1, (valor * -1));
         }
     }
@@ -205,6 +209,10 @@ int transfereValor(ListaClientes *lc) {
             } else {
                 printf("Valor a ser transferido: ");
                 scanf("%lf", &valor);
+
+                if (verificaSaldo(&lc->carteira[indiceCliente1], valor) == -3) {
+                    return -3;
+                }
 
                 lc->carteira[indiceCliente1].saldo -= valor;
                 registraTransacao(&lc->carteira[indiceCliente1], 3, (valor * -1));
@@ -335,6 +343,20 @@ int geraExtrato(Cliente *c) {
     }
 
     fclose(f);
+
+    return 0;
+}
+
+int verificaSaldo(Cliente *c, double valor) {
+    if (c->tipo == 1) {
+        if (c->saldo - valor < -1000) {
+            return -3;
+        }
+    } else if (c->tipo == 2) {
+        if (c->saldo - valor < -5000) {
+            return -3;
+        }
+    }
 
     return 0;
 }
