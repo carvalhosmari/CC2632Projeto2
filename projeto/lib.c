@@ -291,11 +291,20 @@ int listaTransacoes(ListaClientes *lc) {
 }
 
 int geraExtrato(Cliente *c) {
+    char *tipo;
     Transacoes *tr = &c->extrato;
     FILE *f = fopen("extrato.txt", "w");
 
+    fprintf(f, "nome: %s\n", c->nome);
+    fprintf(f, "CPF: %d\n", c->cpf);
+
+    if (c->tipo == 1) {
+        fprintf(f, "Tipo de conta: comum\n");
+    } else {
+        fprintf(f, "Tipo de conta: plus\n");
+    }
+
     for (int i = 0; i < tr->qtd; i++) {
-        char *tipo;
         double tarifa = 0;
         double valorTransacao = tr->lista[i].valor / (1 + tarifa);
 
@@ -317,15 +326,15 @@ int geraExtrato(Cliente *c) {
             }
         }
 
-        fprintf(f, "tipo: %s\n", tipo);
-        fprintf(f, "valor: R$ %.2lf\n", valorTransacao);
-        fprintf(f, "tarifa: %.0lf%%\n", (tarifa * 100));
-        fprintf(f, "total: R$ %.2lf\n", tr->lista[i].valor + (valorTransacao * tarifa));
-        fprintf(f, "-------------------------------\n");
+        fprintf(f, "-----------------------------------------------------------\n");
+        fprintf(f, "%s\n", tipo);
+        fprintf(f, "\t R$ %.2lf\t ", valorTransacao);
+        fprintf(f, "tarifa: %.0lf%%\t ", (tarifa * 100));
+        fprintf(f, "saldo: R$ %.2lf\t ", tr->lista[i].saldoAtualizado);
+        fprintf(f, "\n");
     }
 
     fclose(f);
 
     return 0;
 }
-
