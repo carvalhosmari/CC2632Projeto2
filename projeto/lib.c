@@ -4,6 +4,7 @@
 
 #include "lib.h"
 #include <stdio.h>
+#include <time.h>
 
 void imprimeMenu() {
     printf("\n********************************************\n");
@@ -233,6 +234,8 @@ int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor) {
     op->tipo = tipoOperacao;
     op->saldoAtualizado = c->saldo;
 
+    registraData(&op->dataTransacao);
+
     tr->qtd++;
 
     return 0;
@@ -288,7 +291,7 @@ int listaTransacoes(ListaClientes *lc) {
                     }
                 }
                 printf("--------------------------------------------------------\n");
-                printf("tipo: %s\n", tipo);
+                printf("%0d/%0d/%0d %0dh%0dm%0ds\t%s\n", tr->lista[i].dataTransacao.dia, tr->lista[i].dataTransacao.mes, tr->lista[i].dataTransacao.ano, tr->lista[i].dataTransacao.hora, tr->lista[i].dataTransacao.min, tr->lista[i].dataTransacao.seg, tipo);
                 printf("\t R$ %.2lf\t tarifa: %.0lf%%\t saldo: %.2lf\n", valorTransacao, (tarifa * 100), tr->lista[i].saldoAtualizado);
             }
             printf("\n");
@@ -335,6 +338,7 @@ int geraExtrato(Cliente *c) {
         }
 
         fprintf(f, "-----------------------------------------------------------\n");
+        fprintf(f,"%0d/%0d/%0d %0dh%0dm%0ds\t", tr->lista[i].dataTransacao.dia, tr->lista[i].dataTransacao.mes, tr->lista[i].dataTransacao.ano, tr->lista[i].dataTransacao.hora, tr->lista[i].dataTransacao.min, tr->lista[i].dataTransacao.seg);
         fprintf(f, "%s\n", tipo);
         fprintf(f, "\t R$ %.2lf\t ", valorTransacao);
         fprintf(f, "tarifa: %.0lf%%\t ", (tarifa * 100));
@@ -357,6 +361,24 @@ int verificaSaldo(Cliente *c, double valor) {
             return -3;
         }
     }
+
+    return 0;
+}
+
+int registraData(Data *dt) {
+    struct tm *data;
+    time_t timer;
+
+    time(&timer);
+
+    data = localtime(&timer);
+
+    dt->dia = data->tm_mday;
+    dt->mes = data->tm_mon + 1;
+    dt->ano = data->tm_year + 1900;
+    dt->hora = data->tm_hour;
+    dt->min = data->tm_min;
+    dt->seg = data->tm_sec;
 
     return 0;
 }
