@@ -14,9 +14,18 @@ typedef enum {
     transferencia
 } TipoOperacao;
 typedef struct {
+    int dia;
+    int mes;
+    int ano;
+    int hora;
+    int min;
+    int seg;
+} Data;
+typedef struct {
     TipoOperacao  tipo;
     double valor;
     double saldoAtualizado;
+    Data dataTransacao;
 } Operacao;
 typedef struct {
     Operacao lista[100];
@@ -48,4 +57,5 @@ int registraTransacao(Cliente *c, TipoOperacao tipoOperacao, double valor);
 int listaTransacoes(ListaClientes *lc);
 int geraExtrato(Cliente *c);
 int verificaSaldo(Cliente *c, double valor);
+int registraData(Data *dt);
 #endif //PROJETO_LIB_H
