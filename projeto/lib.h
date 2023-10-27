@@ -4,15 +4,20 @@
 
 #ifndef PROJETO_LIB_H
 #define PROJETO_LIB_H
+// Enumeração que define os tipos de conta: comum ou plus
 typedef enum {
     comum = 1,
     plus
 } TipoConta;
+
+// Enumeração que define os tipos de operação: débito, depósito ou transferência
 typedef enum {
     debito = 1,
     deposito,
     transferencia
 } TipoOperacao;
+
+// Estrutura que representa uma data e hora
 typedef struct {
     int dia;
     int mes;
@@ -21,16 +26,22 @@ typedef struct {
     int min;
     int seg;
 } Data;
+
+// Estrutura que representa uma operação (transação)
 typedef struct {
-    TipoOperacao  tipo;
+    TipoOperacao tipo;
     double valor;
     double saldoAtualizado;
     Data dataTransacao;
 } Operacao;
+
+// Estrutura que mantém uma lista de transações de um cliente
 typedef struct {
     Operacao lista[100];
     int qtd;
 } Transacoes;
+
+// Estrutura que representa um cliente
 typedef struct {
     char nome[150];
     int cpf;
@@ -39,10 +50,14 @@ typedef struct {
     int senha;
     Transacoes extrato;
 } Cliente;
+
+// Estrutura que mantém uma lista de clientes
 typedef struct {
     Cliente carteira[10];
     int qtd;
 } ListaClientes;
+
+// Declarações de funções utilizadas no sistema bancário
 void imprimeMenu();
 int cadastraCliente(ListaClientes *lc);
 int listaClientes(ListaClientes *lc);
