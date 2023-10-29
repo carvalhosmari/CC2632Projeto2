@@ -53,7 +53,7 @@ typedef struct {
 
 // Estrutura que mantém uma lista de clientes
 typedef struct {
-    Cliente carteira[10];
+    Cliente carteira[1000];
     int qtd;
 } ListaClientes;
 

@@ -37,7 +37,7 @@ int cadastraCliente(ListaClientes *lc) {
     printf("Digite o saldo inicial da conta: ");
     scanf("%lf", &cl->saldo);
 
-    printf("Digite uma senha de 4 digitos: ");
+    printf("Digite uma senha de 4 digitos numericos: ");
     scanf("%d", &cl->senha);
 
     // Inicializa o extrato do cliente e registra como deposito a transação de abertura da conta (saldo inicial)
@@ -69,6 +69,8 @@ int listaClientes(ListaClientes *lc) {
         printf("Cliente [%d]: \n", (i + 1));
         printf("\tNome: %s\n\tCPF: %d\n\tTipo de conta: %s\n\tSaldo: R$ %.2lf\n", lc->carteira[i].nome, lc->carteira[i].cpf, tipo, lc->carteira[i].saldo);
     }
+
+    printf("\n");
 
     return 0;
 }
